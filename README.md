@@ -1,4 +1,4 @@
-# Ponte MQTT para MongoDB
+# consumidor-mqtt-pi-6-termo - Ponte MQTT para MongoDB
 
 Script Python que assina um tópico de um broker MQTT remoto e grava cada mensagem em uma coleção MongoDB remota.
 
@@ -31,5 +31,3 @@ python -m unittest discover -s tests -v
 Mensagens UTF-8 são armazenadas com `topic`, `payload`, `payload_data`, `received_at`, `data`, `qos` e `retain`. O campo `payload_data` contém um objeto/valor JSON quando o conteúdo é JSON válido, ou uma string quando não é. O campo `data` registra a data e hora UTC imediatamente antes da inserção no MongoDB. Payloads binários são armazenados em `payload_base64`.
 
 O script confirma a entrega MQTT após a inserção no MongoDB. Isso reduz perda de mensagens em caso de falha de gravação; como MQTT e MongoDB não compartilham uma transação, uma interrupção no instante da confirmação pode causar reentrega e documento duplicado.
-# consumidor-mqtt-pi-6-termo
-# consumidor-mqtt-pi-6-termo
