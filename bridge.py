@@ -104,6 +104,8 @@ def main() -> None:
     def on_message(client, userdata, message):
         try:
             document = build_document(message)
+            payload = document.get("payload", "base64:" + document["payload_base64"])
+            logger.info("Mensagem recebida (tópico=%s, payload=%s)", message.topic, payload)
             add_persistence_timestamp(document)
             result = collection.insert_one(document)
             client.ack(message.mid, message.qos)

@@ -20,6 +20,27 @@ Script Python que assina um tópico de um broker MQTT remoto e grava cada mensag
    python bridge.py
    ```
 
+## Execução contínua no Linux
+
+Para iniciar a ponte automaticamente com o servidor e reiniciá-la caso o processo falhe, instale a unidade `systemd` incluída no projeto. Ajuste o usuário e os caminhos em `deploy/mqtt-mongo-bridge.service` se o projeto não estiver em `/home/ubuntu/mqtt-mongo-bridge`.
+
+Depois de configurar `.env` e instalar as dependências no ambiente virtual:
+
+```bash
+sudo cp deploy/mqtt-mongo-bridge.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now mqtt-mongo-bridge.service
+```
+
+Verifique o estado e acompanhe os logs com:
+
+```bash
+sudo systemctl status mqtt-mongo-bridge.service
+sudo journalctl -u mqtt-mongo-bridge.service -f
+```
+
+`systemd` inicia o serviço no boot e tenta reiniciá-lo 10 segundos após uma saída ou falha. Para pará-lo temporariamente, use `sudo systemctl stop mqtt-mongo-bridge.service`.
+
 Para validar a conversão de payloads sem conectar aos serviços remotos:
 
 ```bash

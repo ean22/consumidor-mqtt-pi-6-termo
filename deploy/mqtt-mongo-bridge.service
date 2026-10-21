@@ -1,0 +1,17 @@
+[Unit]
+Description=MQTT to MongoDB bridge
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/mqtt-mongo-bridge
+ExecStart=/home/ubuntu/mqtt-mongo-bridge/.venv/bin/python /home/ubuntu/mqtt-mongo-bridge/bridge.py
+Restart=always
+RestartSec=10
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
